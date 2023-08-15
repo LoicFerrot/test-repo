@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "supervisor-schema",
+  "description": "Schema corresponding to supervisor.yaml",
+  "type": "object",
+  "properties": {
+    "zones": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/zone"
+          }
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            ".": {
+              "$ref": "#/$defs/zone"
+            }
+          }
+        }
+      ]
+    },
+    "checks": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/check_with_name"
+          }
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            ".": {
+              "$ref": "#/$defs/check"
+            }
+          }
+        }
+      ]
+    },
+    "observers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observer"
+      }
+    },
+    "supervisors": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/supervisor_with_name"
+          }
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            ".": {
+              "$ref": "#/$defs/supervisor"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "zones",
+    "checks",
+    "supervisors"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "zone": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "polygon": {
+          "$ref": "#/$defs/polygon"
+        },
+        "direction": {
+          "$ref": "#/$defs/point"
+        }
+      },
+      "required": [
+        "name",
+        "polygon"
+      ],
+      "additionalProperties": false
+    },
+    "polygon": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/point"
+      }
+    },
+    "point": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number"
+      }
+    },
+    "check": {
+      "$ref": "#/$defs/check_base",
+      "required": [
+        "type",
+        "args"
+      ]
+    },
+    "check_with_name": {
+      "$ref": "#/$defs/check_base",
+      "required": [
+        "name",
+        "type",
+        "args"
+      ]
+    },
+    "check_base": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "args": {
+          "type": "object"
+        },
+        "decorators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decorator"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "decorator": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "args": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "args"
+      ]
+    },
+    "observer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "attaches_to": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "attaches_to"
+      ]
+    },
+    "supervisor": {
+      "$ref": "#/$defs/supervisor_base",
+      "required": [
+        "type",
+        "args"
+      ]
+    },
+    "supervisor_with_name": {
+      "$ref": "#/$defs/supervisor_base",
+      "required": [
+        "name",
+        "type",
+        "args"
+      ]
+    },
+    "supervisor_base": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "args": {
+          "$ref": "#/$defs/supervisor_args"
+        }
+      },
+      "additionalProperties": false
+    },
+    "supervisor_args": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
