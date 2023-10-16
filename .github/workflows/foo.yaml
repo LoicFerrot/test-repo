@@ -1,0 +1,13 @@
+name: Foo workflow starting a fake deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on:
+      - self-hosted
+    environment: some-env
+    name: Deploy to some env
+    steps:
+      - run: sleep 3600
