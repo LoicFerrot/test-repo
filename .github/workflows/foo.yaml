@@ -10,4 +10,5 @@ jobs:
     environment: some-env
     name: Deploy to some env
     steps:
+      - run: printenv
       - run: sleep 3600
