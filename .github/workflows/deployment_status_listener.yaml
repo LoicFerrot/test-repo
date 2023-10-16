@@ -1,0 +1,14 @@
+name: Listens to a deployment status
+
+on:
+  deployment_status
+
+
+jobs:
+  listens:
+    permissions:
+      deployments: read
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - run: printenv
