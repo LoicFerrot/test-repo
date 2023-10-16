@@ -5,6 +5,8 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      deployments: read
     runs-on:
       - self-hosted
     environment: some-env
