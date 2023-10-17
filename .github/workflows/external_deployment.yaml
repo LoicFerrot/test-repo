@@ -1,0 +1,24 @@
+name: Deploy external
+
+on:
+  workflow_dispatch:
+  deployment_status:
+
+jobs:
+  deploy:
+    outputs:
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    runs-on: ubuntu-latest
+    if: github.event_name != 'deployment_status'
+    steps:
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1.4.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: some-env
+
+      - run: echo "steps.deployment.outputs.deployment_id = ${{ steps.deployment.outputs.deployment_id }}"
+      
+      - run: sleep 15
