@@ -18,7 +18,8 @@ jobs:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: some-env
+          debug: true
 
       - run: echo "steps.deployment.outputs.deployment_id = ${{ steps.deployment.outputs.deployment_id }}"
-      
+
       - run: sleep 15
