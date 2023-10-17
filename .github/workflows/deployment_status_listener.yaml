@@ -12,3 +12,9 @@ jobs:
       - ubuntu-latest
     steps:
       - run: printenv
+      - run: echo "github.event.deployment_status.id = ${{ github.event.deployment_status.id }}"
+      - run: echo "github.event.deployment_status.state = ${{ github.event.deployment_status.state }}"
+      - run: echo "github.event.deployment_status.environment = ${{ github.event.deployment_status.environment }}"
+      - run: echo "github.event.deployment_status.environment_url = ${{ github.event.deployment_status.environment_url }}"
+      - run: echo "github.event.deployment_status.description = ${{ github.event.deployment_status.description }}"
+      - run: echo "github.event.deployment_status.log_url = ${{ github.event.deployment_status.log_url }}"
