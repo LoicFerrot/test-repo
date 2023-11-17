@@ -28,9 +28,9 @@ jobs:
 
       - run: echo "steps.deployment.outputs.deployment_id = ${{ steps.deployment.outputs.deployment_id }}"
 
-      - run: sleep 15
-      - env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 deployment_status_updater.py "${{ steps.deployment.outputs.deployment_id }}"
+      # - run: sleep 15
+      # - env: 
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: python3 deployment_status_updater.py "${{ steps.deployment.outputs.deployment_id }}"
         
           
